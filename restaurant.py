@@ -19,7 +19,9 @@ def get_restaurant_data(region, page_num):
 def choose_random(region):
     restaurant_list = get_restaurant_data(region, 10)
     filtered_restaurant_list = [elem for elem in restaurant_list if elem['category_group_name'] == '음식점']
-    return random.choice(filtered_restaurant_list)
+    return random.sample(filtered_restaurant_list, 10)
 
 if __name__ == '__main__':
+    menu = choose_random("어은동 음식점")
     print(choose_random("어은동 음식점"))
+    print(menu['category_name'].split(' > ')[-1])

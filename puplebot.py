@@ -38,14 +38,13 @@ async def on_message(message):
         else:
             query = message_token[1]
 
-        await message.channel.send(f"{query}에 있는 식당을 무작위로 선택합니다.")
-        rest = restaurant.choose_random(f'{query} 음식점')
+        await message.channel.send(f"{query}에 있는 식당 10개를 무작위로 선택합니다.")
+        rest_list = restaurant.choose_random(f'{query} 맛집')
 
         embed=discord.Embed(title='식당 랜덤 선택 결과', color=0x8621ca)
-        embed.add_field(name='선택된 식당', value=rest['place_name'], inline=False)
-        embed.add_field(name='주소', value=f"{rest['road_address_name']} ({rest['address_name']})", inline=False)
-        embed.add_field(name='전화번호', value=rest['phone'], inline=False)
-        embed.add_field(name='링크', value=rest['place_url'], inline=False)
+        for rest in rest_list:
+            embed.add_field(name=rest['place_name'], value=rest['category_name'].split(' > ')[-1], inline=False)
+
         await message.channel.send(embed=embed)
 
     # 지뢰찾기
